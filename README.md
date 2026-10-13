@@ -8,8 +8,9 @@ A data-engineering portfolio project targeting Amazon Data Engineer I (CMT, Job 
 
 | Item | Status |
 |---|---|
-| Phase 1 code + tests | in progress |
-| AWS deployment | **not deployed** (see DEPLOYMENT.md) |
+| Phase 1 code + tests | implemented; 72 tests passing locally |
+| Local run | works (`scripts/local_server.py` + `scripts/smoke_test.py`) |
+| AWS deployment | **not deployed** – no AWS credentials/CLI in the build environment; see [DEPLOYMENT.md](DEPLOYMENT.md) |
 
 ## Roadmap
 
@@ -25,4 +26,14 @@ A data-engineering portfolio project targeting Amazon Data Engineer I (CMT, Job 
 python -m venv .venv
 .\.venv\Scripts\python -m pip install -r requirements-dev.txt
 .\.venv\Scripts\python -m pytest
+```
+
+## Phase 1 at a glance
+`POST /events`, `POST /events/batch`, `GET /metrics` behind API Gateway (API key + throttling) → Lambda → S3 `raw/`, `processed/`, `rejected/` (Hive-style partitions), DynamoDB for idempotency claims and atomic quality counters. Infrastructure is AWS CDK (Python).
+
+Docs: [ARCHITECTURE](ARCHITECTURE.md) · [DATA_DICTIONARY](DATA_DICTIONARY.md) · [DATA_CONTRACTS](DATA_CONTRACTS.md) · [DEPLOYMENT](DEPLOYMENT.md) · [COST_ESTIMATE](COST_ESTIMATE.md)
+
+Try it locally:
+```powershell
+.\.venv\Scripts\python scripts\local_demo.py
 ```

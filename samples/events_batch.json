@@ -1,0 +1,15 @@
+{
+  "_comment": "Synthetic sample data. '__NOW__' is replaced by scripts/local_demo.py; replace it manually when using curl.",
+  "events": [
+    {"event_id": "demo-001", "event_type": "page_view", "event_timestamp": "__NOW__", "source": "web-app",
+     "entity_id": "user-1", "schema_version": "1.0", "payload": {"url": "/home"}},
+    {"event_id": "demo-002", "event_type": "purchase", "event_timestamp": "__NOW__", "source": "web-app",
+     "entity_id": "user-2", "schema_version": "1.0", "payload": {"amount": 19.99, "currency": "INR"}},
+    {"event_id": "demo-001", "event_type": "page_view", "event_timestamp": "__NOW__", "source": "web-app",
+     "entity_id": "user-1", "schema_version": "1.0", "payload": {"url": "/home"}},
+    {"event_id": "demo-003", "event_type": "sensor_reading", "event_timestamp": "not-a-date",
+     "source": "iot-gateway", "entity_id": "sensor-9", "payload": {"temp_c": 21.5}},
+    {"event_id": "demo-004", "event_type": "unknown_type", "event_timestamp": "__NOW__",
+     "source": "iot-gateway", "entity_id": "sensor-9", "payload": "oops"}
+  ]
+}
