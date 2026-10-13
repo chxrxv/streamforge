@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from dataclasses import dataclass, field
 from datetime import UTC, datetime, timedelta
 from typing import Any
@@ -13,6 +14,7 @@ SUPPORTED_EVENT_TYPES = frozenset(
 )
 REQUIRED_FIELDS = ("event_id", "event_type", "event_timestamp", "source", "entity_id", "payload")
 MAX_ID_LENGTH = 128
+SOURCE_PATTERN = re.compile(r"^[A-Za-z0-9._-]{1,64}$")  # used in S3 keys, so keep it safe
 MAX_PAYLOAD_BYTES = 32 * 1024
 MAX_FUTURE_SKEW = timedelta(minutes=5)
 MAX_AGE = timedelta(days=365)
@@ -87,6 +89,10 @@ def validate_event(event: Any, now: datetime | None = None) -> ValidationResult:
     for name in ("event_id", "source", "entity_id"):
         if event.get(name) is not None:
             _check_id(name, event[name], errors)
+
+    src = event.get("source")
+    if isinstance(src, str) and src.strip() and not SOURCE_PATTERN.match(src):
+        errors.append(ValidationError("source", "invalid_format", "source must match [A-Za-z0-9._-]{1,64}"))
 
     etype = event.get("event_type")
     if etype is not None and etype not in SUPPORTED_EVENT_TYPES:
