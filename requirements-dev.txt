@@ -1,0 +1,6 @@
+-r requirements.txt
+pytest>=8
+moto[s3,dynamodb]>=5
+aws-cdk-lib>=2.150
+constructs>=10
+ruff>=0.5

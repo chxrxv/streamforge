@@ -1,0 +1,2 @@
+# Runtime deps for local dev; Lambda uses the runtime-provided boto3.
+boto3>=1.34
